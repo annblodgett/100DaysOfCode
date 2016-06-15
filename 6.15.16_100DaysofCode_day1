@@ -19,7 +19,10 @@
   <h1>
 Margaret Hamilton 
 </h1>
-<img class='img-responsive' src= 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Margaret_Hamilton_in_action.jpg'>
+<figure class="figure">
+  <img data-src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Margaret_Hamilton_in_action.jpg"class="figure-img img-fluid img-rounded" alt="Photo of Margaret Hamilton in action."
+  <figcaption class="figure-caption">A caption for the above image.</figcaption>
+</figure>
 <h2>Software engineer whose code helped put humans on the moon.</h2>
   <p>This part is inside a .container-fluid class.</p>
   <p>The .container-fluid class provides a full width container, spanning the entire width of the viewport.</p>
