@@ -20,7 +20,7 @@
 Margaret Hamilton 
 </h1>
 <figure class="figure">
-  <img class="figure-img img-fluid img-rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Margaret_Hamilton_in_action.jpg"class="figure-img img-fluid img-rounded" alt="Photo of Margaret Hamilton in action.">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Margaret_Hamilton_in_action.jpg" class="figure-img img-fluid img-rounded" alt="Photo of Margaret Hamilton in action.">
   <figcaption class="figure-caption">Hamilton in action.</figcaption>
 </figure>
 <h2>Software engineer whose code helped put humans on the moon.</h2>
