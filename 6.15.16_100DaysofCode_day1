@@ -2,6 +2,8 @@
 
 <!-- time in 4:30pm -->
 <!-- time out 5:00pm-->
+<!-- time in 8:00pm-->
+<!-- time out -->
 <!-- Bootstrap header from http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_gs_container-fluid&stacked=h -->
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +22,7 @@
 Margaret Hamilton 
 </h1>
 <figure class="figure">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Margaret_Hamilton_in_action.jpg" class="figure-img img-fluid img-rounded" alt="Photo of Margaret Hamilton in action.">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Margaret_Hamilton_in_action.jpg" class="img-responsive" alt="Photo of Margaret Hamilton in action.">
   <figcaption class="figure-caption">Hamilton in action.</figcaption>
 </figure>
 <h2>Software engineer whose code helped put humans on the moon.</h2>
@@ -30,4 +32,3 @@ Margaret Hamilton
 
 </body>
 </html>
-
