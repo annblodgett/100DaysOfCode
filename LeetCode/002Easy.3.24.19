@@ -1,0 +1,195 @@
+LeetCode Easy 002
+Completed 3.24.2019
+Practice Language: Python
+
+1)Problem Information
+-------------------------------------------------------------------------------
+You're given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.
+
+The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+Example 1:
+
+Input: J = "aA", S = "aAAbbbb"
+Output: 3
+
+Example 2:
+
+Input: J = "z", S = "ZZ"
+Output: 0
+Note:
+
+S and J will consist of letters and have length at most 50.
+The characters in J are distinct.
+-------------------------------------------------------------------------------
+2) A large example with no special cases.
+
+Input:  J = "aAbBcCoE" S = "thE quiCk broWn Fox juMps Over the LAzy DoG"
+Output: 7
+
+3) Get a Brute Force solution and state it's runtime.
+
+Put both the characters in the string  J (m steps where m is the number of characters in the J array) and the characters in S (n steps where n is the number of characters in the S array) into 2 arrays. 
+
+Walk through the S array as many times as there are elements in the J array checking each character in S against the character in J at the position in the array that is the same as the number of iteration you are currently on. (m*n steps).  Increment a count variable each time a matching character is found in s( 1 step). 
+
+runtime complexity:  (m*n)+m+n+1
+
+The Space Complexity of this is O(s+j) where s is the number of characters in the S input string and j is the number of characters in the J input string. 
+
+The Runtime Complexity is O(s*j) where s is the number of characters in the S input string and j is the number of characters in the J input string.
+
+4)Optimize 
+Bottlenecks: walking through all the elements in s array multiple times.
+
+Unnecessary work:  Can I just treat the string as a char array?  I'm not sure in python if there is a way to just iterate over strings, but it seems wasteful to put the strings into arrays if we don't have to. 
+
+Duplicated work:  We go through the elements of the S array over and over again.
+
+DIY: When going through my big example I ended up making a list of the characters in the J array and then putting a tally mark next to item each time I found it in the S array. At the end, I added up the tallies. 
+
+Data Structure Brainstorm:
+
+What if I first put J into a dictionary?  No that actually doesn't seem like a good idea, I am not sure what I would use for the keys.  I could put it into a binary tree though, with characters sorted alphabetically. Then, as I walk through the S array I could just check to see if the character exists in the binary tree [O(logN)].   This would reduce complexity.
+
+Actually.  I could make the dictionary.  Use the characters in J as keys and then true or 1 for each value. Then I could just make it so that if the characters are found in the hash table I increment the count.  That would reduce the complexity to O(s+j), j steps to insert the J values into the dictionary and s steps to walk through the S string and check whether each value exists in the table.
+
+5) Walkthrough
+
+
+Walk through the J string, placing each character into a dictionary with the character as the key and true as the mapped value.   (n steps, to insert each character of j into the dictionary, where n is the number of elements in the J string)
+
+Make a variable to store count. Now walk through the s string, checking each time whether the value exists in the J dictionary. If it does, increment count by 1.  (Some constant times m steps, to walk through the array, check the dictionary, and increment the count, where m is the number of elements in the S array)  At the end of the string, return count. (1 step)
+
+BigO runtime: O(n+m)
+
+Not sure about the space complexity for a dictionary in python.  Not sure where to look up.  However, in this algorithm, we need a place for the J and S strings, space for the dictionary for the J, and a space for an integer count variable. 
+-------------------------------------------------------------------------------
+
+#Small example to test this algorithm.
+
+Input J = "e"  S= "Hello"
+
+
+JDictionary
+---
+e -> true 
+
+
+count =0 
+
+
+iteration =0
+
+S walkthrough
+-----
+iteration 0: H 
+in Dict? False 
+count 0
+
+
+iteration 1: e
+in Dict? True 
+count 1
+
+
+iteration 2: l
+in Dict? False
+count 1
+
+ 
+iteration 3: l
+in Dict? False
+count 1
+ 
+iteration 4: o
+in Dict? False
+count 1
+
+count = 1
+
+return 1
+-------------------------------------------------------------------------------
+
+Tradeoffs: Trading space for time.  Using a hashmap takes more space but saves us a lot of time. 
+
+6) Implement
+
+-------------------------------------------------------------------------------
+class Solution:
+    def numJewelsInStones(self, J: str, S: str) -> int:
+        JewelCharsDict ={}
+
+        for char in J:
+            JewelCharsDict[char] = True
+
+        count = 0
+
+        for i in S:
+            if i in JewelCharsDict:
+                count = count+1
+
+        return count
+-------------------------------------------------------------------------------
+
+7)Tests
+
+Passes LeetCode tests.
+
+Runtime: 44 ms, faster than 51.77% of Python3 online submissions for Jewels and Stones.
+Memory Usage: 13.3 MB, less than 5.25% of Python3 online submissions for Jewels and Stones. 
+
+Decided to use camel case for variable names to be consistent with the starter code LeetCode provides. All other style issues are not relevant in Python.
+
+See https://goo.gl/L3iCVq for a walkthrough of the code on PythonTutor.com with a small test case
+
+-------------------------------------------------------------------------------
+
+LeetCode doesn't have a standard solution listed/ offered but here is a solution by 
+waichun_c  that takes 20ms, 10.8mb
+
+https://leetcode.com/problems/jewels-and-stones/discuss/248945/Python-20ms-10.8mb-100-One-line-code
+
+class Solution(object):
+    def numJewelsInStones(self, J, S):
+        """
+        :type J: str
+        :type S: str
+        :rtype: int
+        """
+        return sum([1 for i in S if i in J])
+
+
+Also this one from dlima. Same algorithm as me, yay! I really like his identifier names. I want to to go back and rename my dictionary now :P
+https://leetcode.com/problems/jewels-and-stones/discuss/258995/Explicit-Python-Hash-Set-O(M-%2B-N)
+
+class Solution(object):
+    def numJewelsInStones(self, J, S):
+        """
+        :type J: str
+        :type S: str
+        :rtype: int
+        """
+        jewelSet = set()
+        for jewel in J:
+            jewelSet.add(jewel)
+        
+        jewels = 0
+        for stone in S:
+            if stone in jewelSet:
+                jewels += 1
+        
+        return jewels
+Time & Space Complexity: O(M + N)
+  
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
