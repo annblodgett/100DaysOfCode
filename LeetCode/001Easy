@@ -1,0 +1,138 @@
+LeetCode EASY 001
+Completed 3.23.2019
+Practice Language: C++
+
+1) Problem Information
+
+------------------------------------------------
+Given a non-empty, singly linked list with head node head, return a middle node of linked list. If there are two middle nodes, return the second middle node.
+
+Example 1:
+
+Input: [1,2,3,4,5]
+Output: Node 3 from this list (Serialization: [3,4,5])
+The returned node has value 3.  (The judge's serialization of this node is [3,4,5]).
+Note that we returned a ListNode object ans, such that:
+ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, and ans.next.next.next = NULL.
+Example 2:
+
+Input: [1,2,3,4,5,6]
+Output: Node 4 from this list (Serialization: [4,5,6])
+Since the list has two middle nodes with values 3 and 4, we return the second one.
+ 
+
+Note:
+The number of nodes in the given list will be between 1 and 100.
+
+	Starter Code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        
+    }
+};
+
+-----------------------------
+
+2) Large Example:
+
+Input : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,27,25]
+
+3) Get a brute Force Solution
+
+Walk through the list until you find then end of the list to get the list length, while keeping track of how many nodes have been visited. [n steps where n is the list length] Divide the number of nodes by two to get the node before the middle node. [1 step] Walk through the list again until you reach the node before the  middle or second middle node [ n/steps] and then return its next node [1 step]. 
+
+This algorithm's runtime is n+(n/2)+2 where N is the number of nodes in the input.  Runtime is O(1.5n).
+
+4)Optimize
+ Bottlenecks:  The slowest part of this is walking through the linked list.
+ Unecessary Work: Not that I can find
+ Duplicated Work: We walk through the first half of the list twice.  Maybe we can store each node in an array as we go so that we only have to go through it once. 
+
+5) Walk Through
+ 
+  -Starting at the head node walk through the list, storing every node in an array as we go.  
+
+- Return the node stored at position array.length /2 in the array
+
+
+The runtime complexity is O(n) where n is the number of nodes in the input list. 
+
+We are trading space for time.  This will be faster because we don't have to walk through the list a second time, but it is going to take additional space to make an array.
+
+Space complexity is O(n) where n is the amount of space the array takes to store a node.
+
+6)
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        vector<ListNode*> nodeArray = {head};
+        while (nodeArray.back()->next != NULL){
+            nodeArray.push_back(nodeArray.back()->next);
+        }
+	return nodeArray[nodeArray.size() / 2];
+    }
+};
+
+7) Testing
+
+Passes the LeetCode Test Suite.
+
+8) LEETCODE'S SOLUTIONS:
+
+Approach 1: Output to Array
+
+/*The first suggested solution is the one I came up with! WOOOT!*/
+
+- Output to Array-
+Intuition and Algorithm
+
+Put every node into an array A in order. Then the middle node is just A[A.length // 2], since we can retrieve each node by index.
+
+
+Complexity Analysis
+
+Time Complexity: O(N), where NN is the number of nodes in the given list.
+
+Space Complexity: O(N), the space used by A. 
+
+-----------------
+
+/* But the second one is better... */
+
+Approach 2: Fast and Slow Pointer
+
+-Fast and Slow Pointer- 
+Intuition and Algorithm
+
+When traversing the list with a pointer slow, make another pointer fast that traverses twice as fast. When fast reaches the end of the list, slow must be in the middle.
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+};
+-----------------
+
+Complexity Analysis
+
+Time Complexity: O(N), where N is the number of nodes in the given list.
+
+Space Complexity: O(1), the space used by slow and fast. 
+
