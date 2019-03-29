@@ -1,0 +1,162 @@
+LeetCode Easy 003
+Completed 3.28.2019
+Practice Language: Java
+
+1)Problem Description.
+-------------------------------------------------------------------------------
+709. To Lower Case
+Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
+
+ 
+Example 1:
+
+Input: "Hello"
+Output: "hello"
+Example 2:
+
+Input: "here"
+Output: "here"
+Example 3:
+
+Input: "LOVELY"
+Output: "lovely"
+-------------------------------------------------------------------------------
+
+2)Make a large example with no special cases.
+Example "The QuIck BROWN Fox, jumps OVER thE LAZY doG."
+
+3)Brute force solution
+
+Okay, let's be real. If I were doing this in real code I would just use the Java String class's method toLowerCase();  But since it wants me to implement from scratch here is an alternative:
+
+Have a HashMap with the alphabet in uppercase A-Z mapped to the lowercase equivalent a-z
+
+Walk through the input string (n steps where n is the length of the input string), building a new string as we go.  As we walk, check to see if the character is in the HashMap (1 step) and, if it is, take its lower-case value and push and append it onto the end of the new string. (1 step) If the character isn't in the HashMap just append the character itself to the end of the string. (1 step).  When finished, run the To String method of the StringBuilder and return the resulting lowercase string (n steps where n is the length of the StringBuilder array)  Complexity is n^2 +2 where n is the length of the original string.
+
+4) Optimize (BUD, DIY, Simplify and Generalize, Data Structure Brainstorm):
+a) The bottlenecks are walking through the string.  The problem is that I don't really see any way to avoid either the first walk-through OR the second one where we convert the StringBuilder object to a string so we can return it.  If we were just printing it to console I would eliminate converting the StringBuilder to a string. 
+b) Unnecessary work? This whole thing. :P Basically I would just use toLowerCase(); 
+c) Duplicated work? Not really
+
+5) Walk through. O(n^2) where n is the length of the input string.
+-------------------------------------------------------------------------------
+Example String:  "Hi!"
+
+HashMap (Key, Value) - (A,a)(B,b)(C,c)(D,d)(E,e)(F,f)(G,g)(H,h)(I,i)(J,j)(K,k)(L,l)(M,m)(N,n)(O,o)(P,p)(Q,q)(R,r)(S,s)(T,t)(U,u)(V,v)(W,w)(X,x)(Y,y)(Z,z)
+
+StringBuilder new;
+
+int count =0
+
+for count < stringlength count = count+1
+
+count 0
+"H"
+containsKey? True
+
+new = [h]
+
+count 1
+"i"
+containsKey? False
+
+new = [h,i]
+
+count 2
+"!"
+containsKey? False
+new = [h,i,!]
+
+return new.ToString 
+-------------------------------------------------------------------------------
+
+6) Implement
+
+===============================================================================
+import java.lang.String;
+import java.lang.StringBuilder;
+import java.util.HashMap;
+
+class Solution {
+    public String toLowerCase(String str) {
+        
+        // O(n^2) where n is the length of the input string. 
+        
+        // Create a temporary array of characters using StringBuilder and set it to an empty string. O(1)
+        StringBuilder temp = new StringBuilder("");
+        HashMap<Character,Character> alphabet = new HashMap<Character, Character>();
+        
+        //map characters A-Z to thier lowercase equivalents a-z. O(1)
+        alphabet.put('A','a');
+        alphabet.put('B','b');
+        alphabet.put('C','c');
+        alphabet.put('D','d');
+        alphabet.put('E','e');
+        alphabet.put('F','f');
+        alphabet.put('G','g');
+        alphabet.put('H','h');
+        alphabet.put('I','i');
+        alphabet.put('J','j');
+        alphabet.put('K','k');
+        alphabet.put('L','l');
+        alphabet.put('M','m');
+        alphabet.put('N','n');
+        alphabet.put('O','o');
+        alphabet.put('P','p');
+        alphabet.put('Q','q');
+        alphabet.put('R','r');
+        alphabet.put('S','s');
+        alphabet.put('T','t');
+        alphabet.put('U','u');
+        alphabet.put('V','v');
+        alphabet.put('W','w');
+        alphabet.put('X','x');
+        alphabet.put('Y','y');
+        alphabet.put('Z','z');
+        
+    /* Walk through the input string, checking if each character is then HashMap as we go.  If it is, get the lowercase value and append it to temp.  If it is not present just append the character as is. O(n) where n is the length of str */ 
+        
+        for (int i=0;i<str.length();i++){
+            char curr = str.charAt(i);
+            
+            if(alphabet.containsKey(curr)){
+                temp.append(alphabet.get(curr));
+            }
+            else{
+                temp.append(curr);
+            }
+        }
+        
+       //Convert the characters in the temp array into a string object called result. O(n) where n is the length of temp
+       String result = new String(temp.toString());
+        
+        // return the result String. O(1)
+        return result;       
+    }
+}
+===============================================================================
+
+7)Test
+
+I forgot type declarations on i and curr originally.  Also, I forgot the parameter parentheses when constructing HashMap.  Once I fixed those problems my code compiled and all worked fine. 
+
+Passes All Leetcode Tests
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for To Lower Case.
+Memory Usage: 35.5 MB, less than 92.41% of Java online submissions for To Lower Case.
+
+8) LeetCode's Solutions
+
+
+While LeetCode doesn't provide a default solution, user JPV's solution is the one that I would absolutely use in real life code.  Basically, just use the toLowerCase() method of the string class.
+
+
+JPV's avatar
+JPV
+209
+November 5, 2018 1:06 PM
+
+    public String toLowerCase(String str) { return str.toLowerCase(); }
+
+
+
