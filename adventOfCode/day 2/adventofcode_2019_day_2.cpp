@@ -17,6 +17,8 @@ https://adventofcode.com/2019/day/2
  Opcode 2 works exactly like opcode 1, except it multiplies the two inputs instead of adding them. 
  Again, the three integers after the opcode indicate where the inputs and outputs are, not their values.
  
+ Opcode 99 halts the program.
+ 
  Once you're done processing an opcode, move to the next one by stepping forward 4 positions.
  
  To summarize:
